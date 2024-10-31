@@ -6,7 +6,7 @@ const app = express();
 
 // CORS configuration
 const corsOptions = {
-      origin: "http://localhost:3000", // Allow your frontend origin
+      origin: "https://www.galaxyspark.agency", // Allow your frontend origin
       credentials: true, // Allow cookies to be sent
 };
 
