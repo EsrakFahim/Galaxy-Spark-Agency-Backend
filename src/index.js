@@ -6,7 +6,6 @@ dotenv.config({
       path: "./env",
 });
 
-
 connectDB()
       .then(() => {
             app.get("/", (req, res) => {
@@ -24,5 +23,8 @@ connectDB()
             });
       })
       .catch((error) => {
+            app.get("/", (req, res) => {
+                  res.send("Not Welcome to the API");
+            });
             console.error(error);
       });
