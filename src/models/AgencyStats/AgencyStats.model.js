@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-const AgencySummerySchema = new Schema(
+const AgencyStatsSchema = new Schema(
       {
             title: {
                   type: String,
@@ -57,10 +57,10 @@ const AgencySummerySchema = new Schema(
 );
 
 // Sample virtual field to get the total count of all statistics combined
-AgencySummerySchema.virtual("totalStatisticsCount").get(function () {
+AgencyStatsSchema.virtual("totalStatisticsCount").get(function () {
       return this.statistics.reduce((total, stat) => total + stat.value, 0);
 });
 
-const AgencySummary = mongoose.model("AgencySummary", AgencySummerySchema);
+const AgencyStats = mongoose.model("AgencySummary", AgencyStatsSchema);
 
-export { AgencySummary };
+export { AgencyStats };
