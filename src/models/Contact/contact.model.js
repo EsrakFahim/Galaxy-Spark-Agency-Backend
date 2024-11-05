@@ -4,7 +4,7 @@ const contactSchema = new Schema(
       {
             email: {
                   type: String,
-                  required: false,
+                  required: true,
                   match: [/.+\@.+\..+/, "Please enter a valid email address"],
                   trim: true,
                   lowercase: true,
@@ -13,7 +13,7 @@ const contactSchema = new Schema(
             },
             phone: {
                   type: String,
-                  required: false,
+                  required: true,
                   trim: true,
                   default: null,
                   index: true, // Index for efficient querying
@@ -50,7 +50,7 @@ const contactSchema = new Schema(
             },
             linkedin: {
                   type: String,
-                  required: false,
+                  required: true,
                   trim: true,
                   match: [
                         /^https?:\/\/(www\.)?linkedin\.com\/in\/[A-Za-z0-9_.]+$/,
@@ -105,6 +105,16 @@ const contactSchema = new Schema(
                   match: [
                         /^https?:\/\/(www\.)?fiverr\.com\/[A-Za-z0-9_.]+$/,
                         "Invalid Fiverr URL",
+                  ],
+                  default: null,
+            },
+            website: {
+                  type: String,
+                  required: false,
+                  trim: true,
+                  match: [
+                        /^https?:\/\/(www\.)?[A-Za-z0-9_.-]+\.[A-Za-z]{2,5}$/,
+                        "Invalid Website URL",
                   ],
                   default: null,
             },

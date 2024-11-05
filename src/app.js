@@ -19,8 +19,10 @@ app.use(express.static("public")); // Serve static files from 'public' directory
 
 // Routes import
 import clientRouter from "./routes/client.route.js";
+import contactRoute from "./routes/contact.route.js";
 
 // Routes setup
 app.use("/api/v1/client", clientRouter); // Mount client routes
+app.use("/api/v1/contact", contactRoute); // Mount contact routes
 
 export { app };
