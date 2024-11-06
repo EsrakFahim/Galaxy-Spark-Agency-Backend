@@ -35,6 +35,14 @@ const ourServicesSchema = new Schema(
                         "Invalid URL format for cover image",
                   ],
             },
+            showcaseImages: {
+                  type: [String],
+                  default: [],
+                  validate: {
+                        validator: (arr) => arr.length <= 5,
+                        message: "Showcase images cannot exceed 5 items",
+                  },
+            },
             serviceType: {
                   type: String,
                   enum: [
@@ -71,16 +79,16 @@ const ourServicesSchema = new Schema(
                   default: 0,
                   min: 0,
             },
-            createdBy: {
-                  type: Schema.Types.ObjectId,
-                  ref: "User",
-                  required: true,
-            },
-            updatedBy: {
-                  type: Schema.Types.ObjectId,
-                  ref: "User",
-                  required: false,
-            },
+            // createdBy: {
+            //       type: Schema.Types.ObjectId,
+            //       ref: "User",
+            //       required: true,
+            // },
+            // updatedBy: {
+            //       type: Schema.Types.ObjectId,
+            //       ref: "User",
+            //       required: false,
+            // },
             publishedAt: {
                   type: Date,
                   default: null,

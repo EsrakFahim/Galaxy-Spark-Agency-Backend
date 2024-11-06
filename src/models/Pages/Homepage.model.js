@@ -30,7 +30,7 @@ const homePageSchema = new Schema(
                         /^https?:\/\/[^\s]+$/,
                         "Invalid URL format for video",
                   ],
-                  default: "https://www.youtube.com/watch?v=6v2L2UGZJAM",
+                  default: "https://www.youtube.com/embed/dQw4w9WgXcQ?si=t4TS7K2_vFnkHO8a",
             },
             bannerImageUrl: {
                   type: String,
