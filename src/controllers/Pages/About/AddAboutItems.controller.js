@@ -1,6 +1,6 @@
-import { asyncHandler } from "../../utils/asyncHandler.js";
-import { apiResponse } from "../../utils/apiResponse.js";
-import { apiErrorHandler } from "../../utils/apiErrorHandler.js";
+import { asyncHandler } from "../../../utils/asyncHandler.js";
+import { apiResponse } from "../../../utils/apiResponse.js";
+import { apiErrorHandler } from "../../../utils/apiErrorHandler.js";
 import { About } from "../../../models/Pages/About/About.model.js";
 import { uploadFileCloudinary } from "../../../FileHandler/Upload.js";
 
