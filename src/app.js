@@ -26,6 +26,7 @@ import projectsRoute from "./routes/projects.routes.js";
 import teamMemberRoute from "./routes/teamMember.routes.js";
 import pricePlanRoute from "./routes/pricePlan.routes.js";
 import agencyStatsRoute from "./routes/agencyStats.routes.js";
+import homePageRoute from "./routes/homeItems.routes.js";
 
 // Routes setup
 app.use("/api/v1/client", clientRouter); // Mount client routes
@@ -35,5 +36,6 @@ app.use("/api/v1/projects", projectsRoute); // Mount projects routes
 app.use("/api/v1/team-member", teamMemberRoute); // Mount team member routes
 app.use("/api/v1/price-plan", pricePlanRoute); // Mount price plan routes
 app.use("/api/v1/agency-stats", agencyStatsRoute); // Mount agency stats routes
+app.use("/api/v1/home-page", homePageRoute); // Mount home page routes
 
 export { app };
