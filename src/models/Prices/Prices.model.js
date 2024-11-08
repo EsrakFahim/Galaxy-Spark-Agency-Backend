@@ -55,16 +55,16 @@ const pricingPlanSchema = new Schema(
                   default: true,
                   index: true, // Active plans filter
             },
-            createdBy: {
-                  type: Schema.Types.ObjectId,
-                  ref: "User",
-                  required: true,
-            },
-            updatedBy: {
-                  type: Schema.Types.ObjectId,
-                  ref: "User",
-                  required: false,
-            },
+            // createdBy: {
+            //       type: Schema.Types.ObjectId,
+            //       ref: "User",
+            //       required: true,
+            // },
+            // updatedBy: {
+            //       type: Schema.Types.ObjectId,
+            //       ref: "User",
+            //       required: false,
+            // },
             lastEditedAt: {
                   type: Date,
                   default: Date.now,

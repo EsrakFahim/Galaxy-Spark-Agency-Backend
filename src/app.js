@@ -19,11 +19,12 @@ app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 app.use(express.static("public")); // Serve static files from 'public' directory
 
 // Routes import
-import clientRouter from "./routes/client.route.js";
-import contactRoute from "./routes/contact.route.js";
-import serviceRoute from "./routes/service.route.js";
-import projectsRoute from "./routes/projects.route.js";
-import teamMemberRoute from "./routes/teamMember.route.js";
+import clientRouter from "./routes/client.routes.js";
+import contactRoute from "./routes/contact.routes.js";
+import serviceRoute from "./routes/service.routes.js";
+import projectsRoute from "./routes/projects.routes.js";
+import teamMemberRoute from "./routes/teamMember.routes.js";
+import pricePlanRoute from "./routes/pricePlan.routes.js";
 
 // Routes setup
 app.use("/api/v1/client", clientRouter); // Mount client routes
@@ -31,5 +32,6 @@ app.use("/api/v1/contact", contactRoute); // Mount contact routes
 app.use("/api/v1/service", serviceRoute); // Mount service routes
 app.use("/api/v1/projects", projectsRoute); // Mount projects routes
 app.use("/api/v1/team-member", teamMemberRoute); // Mount team member routes
+app.use("/api/v1/price-plan", pricePlanRoute); // Mount price plan routes
 
 export { app };

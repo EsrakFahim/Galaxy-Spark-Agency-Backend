@@ -70,7 +70,7 @@ const projectsSchema = new Schema(
             },
             startDate: {
                   type: Date,
-                  required: [true, "Project start date is required"],
+                  required: [false, "Project start date is required"],
             },
             endDate: {
                   type: Date,
@@ -89,7 +89,7 @@ const projectsSchema = new Schema(
             },
             team: {
                   type: [{ type: String, trim: true }], // Change to `ObjectId` if referencing another collection
-                  required: true,
+                  required: false,
                   validate: {
                         validator: (v) => Array.isArray(v) && v.length > 0,
                         message: "Team should contain at least one member",
@@ -115,7 +115,7 @@ const projectsSchema = new Schema(
             },
             tech: {
                   type: [{ type: String, trim: true }],
-                  required: true,
+                  required: false,
             },
             files: {
                   type: [FileSchema],

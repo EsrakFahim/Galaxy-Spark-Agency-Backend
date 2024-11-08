@@ -9,34 +9,31 @@ import {
 import { transporter } from "../../Services/mailSender.js";
 
 const clientMessage = asyncHandler(async (req, res, next) => {
-      const { fullName, email, message, mobile, clientIP, projectType } =
-            req.body;
+      const { fullName, email, message, mobile, clientIP, projectType } = req.body;
 
       console.log(process.env.DB_CONNECTION_URI);
       console.log("Request Body:", req.body);
 
       if (!fullName || !email) {
-            return next(
-                  new apiErrorHandler(res, 400, "All fields are required")
-            );
-      }
-
-      // Create and save client message in the database
-      const newMessage = await ClientMessage.create({
-            fullName,
-            email,
-            message,
-            projectType: projectType || "Not specified",
-            mobile: mobile || "Not specified",
-            clientIP: clientIP || "Not specified",
-      });
-      console.log("New Message:", newMessage);
-
-      if (!newMessage) {
-            throw new apiErrorHandler(res, 500, "Error saving message");
+            return next(new apiErrorHandler(res, 400, "All fields are required"));
       }
 
       try {
+            // Create and save client message in the database
+            const newMessage = await ClientMessage.create({
+                  fullName,
+                  email,
+                  message,
+                  projectType: projectType || "Not specified",
+                  mobile: mobile || "Not specified",
+                  clientIP: clientIP || "Not specified",
+            });
+            console.log("New Message:", newMessage);
+
+            if (!newMessage) {
+                  throw new apiErrorHandler(res, 500, "Error saving message");
+            }
+
             // Send acknowledgment email to the client
             const clientMailOption = messageReceivedConfig({
                   clientName: fullName,
@@ -57,23 +54,12 @@ const clientMessage = asyncHandler(async (req, res, next) => {
             await transporter.sendMail(adminMailOption);
 
             // Respond with success
-            return res
-                  .status(200)
-                  .json(
-                        new apiResponse(
-                              true,
-                              newMessage,
-                              "Message sent successfully and emails delivered"
-                        )
-                  );
+            return res.status(200).json(
+                  new apiResponse(true, newMessage, "Message sent successfully and emails delivered")
+            );
       } catch (error) {
             console.error("Error sending email:", error);
-
-            new apiErrorHandler(
-                  res,
-                  500,
-                  "Message saved but failed to send email"
-            );
+            return next(new apiErrorHandler(res, 500, "Message saved but failed to send email"));
       }
 });
 

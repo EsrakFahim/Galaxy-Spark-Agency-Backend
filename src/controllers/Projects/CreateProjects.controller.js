@@ -36,13 +36,12 @@ const CreateProject = asyncHandler(async (req, res, next) => {
                   !description ||
                   !projectType ||
                   !status ||
-                  !startDate ||
                   !projectManager ||
+                  !startDate ||
                   !team ||
                   !tech
             ) {
                   throw new apiErrorHandler(
-                        res,
                         400,
                         "Please provide all required fields"
                   );
@@ -97,7 +96,6 @@ const CreateProject = asyncHandler(async (req, res, next) => {
 
             if (!newProject) {
                   throw new apiErrorHandler(
-                        res,
                         500,
                         "Error creating project"
                   );
@@ -115,9 +113,8 @@ const CreateProject = asyncHandler(async (req, res, next) => {
                   );
       } catch (error) {
             throw new apiErrorHandler(
-                  res,
                   500,
-                  error.message || "Server error"
+                  error 
             );
       }
 });
