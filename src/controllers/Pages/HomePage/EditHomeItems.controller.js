@@ -1,14 +1,13 @@
+import { asyncHandler } from "../../../utils/asyncHandler.js";
+import { apiResponse } from "../../../utils/apiResponse.js";
+import { apiErrorHandler } from "../../../utils/apiErrorHandler.js";
+import { HomePage } from "../../../models/Pages/Homepage.model.js";
+import { uploadFileCloudinary } from "../../../FileHandler/Upload.js";
+
 // Controller to edit an existing home page entry
-const editHomePage = asyncHandler(async (req, res) => {
-      const {
-            title,
-            subTitle,
-            videoText,
-            videoUrl,
-            bannerImageUrl,
-            callToAction,
-            isActive,
-      } = req.body;
+const editHomeItems = asyncHandler(async (req, res) => {
+      const { title, subTitle, videoText, callToAction, isActive } = req.body;
+      const { bannerImage, video } = req.files;
 
       try {
             // Find the existing home page entry
@@ -17,24 +16,50 @@ const editHomePage = asyncHandler(async (req, res) => {
                   throw new apiErrorHandler(404, "Home page entry not found.");
             }
 
-            // Update only the provided fields, keeping the previous values for others
+            // Update fields only if new values are provided
             existingHomePage.title = title || existingHomePage.title;
             existingHomePage.subTitle = subTitle || existingHomePage.subTitle;
             existingHomePage.videoText =
                   videoText || existingHomePage.videoText;
-            existingHomePage.videoUrl = videoUrl || existingHomePage.videoUrl;
-            existingHomePage.bannerImageUrl =
-                  bannerImageUrl || existingHomePage.bannerImageUrl;
+            existingHomePage.callToAction = {
+                  text:
+                        callToAction?.text ||
+                        existingHomePage.callToAction.text,
+                  url: callToAction?.url || existingHomePage.callToAction.url,
+            };
 
-            // Update callToAction field conditionally
-            if (callToAction) {
-                  existingHomePage.callToAction.text =
-                        callToAction.text || existingHomePage.callToAction.text;
-                  existingHomePage.callToAction.url =
-                        callToAction.url || existingHomePage.callToAction.url;
+            // Process and update bannerImage if provided
+            if (bannerImage) {
+                  const uploadedBannerImage = await uploadFileCloudinary(
+                        bannerImage[0].path
+                  );
+                  if (uploadedBannerImage) {
+                        existingHomePage.bannerImageUrl =
+                              uploadedBannerImage.secure_url;
+                  } else {
+                        throw new apiErrorHandler(
+                              500,
+                              "Error uploading banner image."
+                        );
+                  }
             }
 
-            // Update isActive field if provided
+            // Process and update video if provided
+            if (video) {
+                  const uploadedVideo = await uploadFileCloudinary(
+                        video[0].path
+                  );
+                  if (uploadedVideo) {
+                        existingHomePage.videoUrl = uploadedVideo.secure_url;
+                  } else {
+                        throw new apiErrorHandler(
+                              500,
+                              "Error uploading video."
+                        );
+                  }
+            }
+
+            // Update isActive if provided
             existingHomePage.isActive =
                   isActive !== undefined ? isActive : existingHomePage.isActive;
 
@@ -52,9 +77,9 @@ const editHomePage = asyncHandler(async (req, res) => {
                         )
                   );
       } catch (error) {
-            // Handle any errors that occur during the process
+            // Handle any errors during the update process
             throw new apiErrorHandler(500, error.message);
       }
 });
 
-export { editHomePage };
+export { editHomeItems };

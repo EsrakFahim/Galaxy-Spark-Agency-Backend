@@ -23,7 +23,7 @@ const homePageSchema = new Schema(
                   maxlength: 200,
                   default: "Watch Our Video",
             },
-            videoUrl: {
+            video: {
                   type: String,
                   required: true,
                   match: [
@@ -32,7 +32,7 @@ const homePageSchema = new Schema(
                   ],
                   default: "https://www.youtube.com/embed/dQw4w9WgXcQ?si=t4TS7K2_vFnkHO8a",
             },
-            bannerImageUrl: {
+            bannerImage: {
                   type: String,
                   required: true,
                   match: [
