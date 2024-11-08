@@ -1,7 +1,7 @@
 import { asyncHandler } from "../../utils/asyncHandler.js";
 import { apiResponse } from "../../utils/apiResponse.js";
 import { apiErrorHandler } from "../../utils/apiErrorHandler.js";
-import { AgencyStats } from "../../models/Agency/AgencyStats.model.js";
+import { AgencyStats } from "../../models/AgencyStats/AgencyStats.model.js";
 
 const getSingleAgencyStats = asyncHandler(async (req, res) => {
       const { id } = req.params;
