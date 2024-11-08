@@ -10,7 +10,7 @@ const getSingleProject = asyncHandler(async (req, res, next) => {
             const project = await Projects.findOne({ _id });
 
             if (!project) {
-                  return apiErrorHandler(res, 404, "Project not found");
+                  throw new apiErrorHandler(res, 404, "Project not found");
             }
 
             return res
@@ -23,7 +23,7 @@ const getSingleProject = asyncHandler(async (req, res, next) => {
                         )
                   );
       } catch (error) {
-            return apiErrorHandler(res, 500, error.message);
+            throw new apiErrorHandler(res, 500, error.message);
       }
 });
 

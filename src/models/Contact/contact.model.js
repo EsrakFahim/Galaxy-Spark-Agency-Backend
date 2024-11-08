@@ -4,7 +4,7 @@ const contactSchema = new Schema(
       {
             email: {
                   type: String,
-                  required: true,
+                  // required: true,
                   match: [/.+\@.+\..+/, "Please enter a valid email address"],
                   trim: true,
                   lowercase: true,
@@ -13,14 +13,14 @@ const contactSchema = new Schema(
             },
             phone: {
                   type: String,
-                  required: true,
+                  // required: true,
                   trim: true,
                   default: null,
                   index: true, // Index for efficient querying
             },
             facebook: {
                   type: String,
-                  required: false,
+                  // required: false,
                   trim: true,
                   match: [
                         /^https?:\/\/(www\.)?facebook\.com\/[A-Za-z0-9_.]+$/,
@@ -30,7 +30,7 @@ const contactSchema = new Schema(
             },
             instagram: {
                   type: String,
-                  required: false,
+                  // required: false,
                   trim: true,
                   match: [
                         /^https?:\/\/(www\.)?instagram\.com\/[A-Za-z0-9_.]+$/,
@@ -40,7 +40,7 @@ const contactSchema = new Schema(
             },
             twitter: {
                   type: String,
-                  required: false,
+                  // required: false,
                   trim: true,
                   match: [
                         /^https?:\/\/(www\.)?twitter\.com\/[A-Za-z0-9_.]+$/,
@@ -50,7 +50,7 @@ const contactSchema = new Schema(
             },
             linkedin: {
                   type: String,
-                  required: true,
+                  // required: true,
                   trim: true,
                   match: [
                         /^https?:\/\/(www\.)?linkedin\.com\/in\/[A-Za-z0-9_.]+$/,
@@ -60,7 +60,7 @@ const contactSchema = new Schema(
             },
             pinterest: {
                   type: String,
-                  required: false,
+                  // required: false,
                   trim: true,
                   match: [
                         /^https?:\/\/(www\.)?pinterest\.com\/[A-Za-z0-9_.]+$/,
@@ -70,7 +70,7 @@ const contactSchema = new Schema(
             },
             upwork: {
                   type: String,
-                  required: false,
+                  // required: false,
                   trim: true,
                   match: [
                         /^https?:\/\/(www\.)?upwork\.com\/freelancers\/[A-Za-z0-9_.]+$/,
@@ -80,7 +80,7 @@ const contactSchema = new Schema(
             },
             behance: {
                   type: String,
-                  required: false,
+                  // required: false,
                   trim: true,
                   match: [
                         /^https?:\/\/(www\.)?behance\.net\/[A-Za-z0-9_.]+$/,
@@ -90,7 +90,7 @@ const contactSchema = new Schema(
             },
             github: {
                   type: String,
-                  required: false,
+                  // required: false,
                   trim: true,
                   match: [
                         /^https?:\/\/(www\.)?github\.com\/[A-Za-z0-9_.]+$/,
@@ -100,7 +100,7 @@ const contactSchema = new Schema(
             },
             fiverr: {
                   type: String,
-                  required: false,
+                  // required: false,
                   trim: true,
                   match: [
                         /^https?:\/\/(www\.)?fiverr\.com\/[A-Za-z0-9_.]+$/,
@@ -110,7 +110,7 @@ const contactSchema = new Schema(
             },
             website: {
                   type: String,
-                  required: false,
+                  // required: false,
                   trim: true,
                   match: [
                         /^https?:\/\/(www\.)?[A-Za-z0-9_.-]+\.[A-Za-z]{2,5}$/,
@@ -120,7 +120,7 @@ const contactSchema = new Schema(
             },
             address: {
                   type: String,
-                  required: false,
+                  // required: false,
                   trim: true,
                   maxlength: 255,
                   default: null,

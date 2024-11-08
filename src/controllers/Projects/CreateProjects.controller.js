@@ -25,7 +25,7 @@ const CreateProject = asyncHandler(async (req, res, next) => {
                   livePreview,
                   sourceFile,
                   isActive,
-            } = req.body;
+            } = req?.body;
 
             // Destructure files from request (if any)
             const { files } = req.files;
@@ -41,17 +41,21 @@ const CreateProject = asyncHandler(async (req, res, next) => {
                   !team ||
                   !tech
             ) {
-                  return apiErrorHandler(
+                  throw new apiErrorHandler(
                         res,
                         400,
                         "Please provide all required fields"
                   );
             }
-
+            console.log("project created");
             // Check if a project with the same name already exists
             const existingProject = await Projects.findOne({ name });
             if (existingProject) {
-                  return apiErrorHandler(res, 400, "Project already exists");
+                  throw new apiErrorHandler(
+                        res,
+                        400,
+                        "Project already exists"
+                  );
             }
 
             // Process file uploads
@@ -92,7 +96,11 @@ const CreateProject = asyncHandler(async (req, res, next) => {
             });
 
             if (!newProject) {
-                  return apiErrorHandler(res, 500, "Error creating project");
+                  throw new apiErrorHandler(
+                        res,
+                        500,
+                        "Error creating project"
+                  );
             }
 
             // Send a success response
@@ -106,7 +114,11 @@ const CreateProject = asyncHandler(async (req, res, next) => {
                         )
                   );
       } catch (error) {
-            return apiErrorHandler(res, 500, error.message || "Server error");
+            throw new apiErrorHandler(
+                  res,
+                  500,
+                  error.message || "Server error"
+            );
       }
 });
 

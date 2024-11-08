@@ -22,12 +22,12 @@ const createContact = asyncHandler(async (req, res, next) => {
 
       // Ensure either email or phone is provided
       if (!email && !phone) {
-            return apiErrorHandler(res, 400, "Email or Phone is required.");
+            throw new apiErrorHandler(400, "Email or Phone is required.");
       }
 
       try {
             // Create the contact entry with trimmed fields
-            const contact = new Contact({
+            const contact = await Contact.create({
                   email: email?.trim(),
                   phone: phone?.trim(),
                   website: website?.trim(),
@@ -43,23 +43,20 @@ const createContact = asyncHandler(async (req, res, next) => {
                   address: address?.trim(),
             });
 
-            // Save the contact to the database
-            await contact.save();
+            if (!contact) {
+                  throw new apiErrorHandler(500, "Failed to create contact entry.");
+            }
 
             // Return successful response with contact data
-            return apiResponse(res, 201, contact);
+            return res.status(201).json(new apiResponse(201, contact, "Contact created successfully."));
       } catch (error) {
             // Handle duplicate or other database errors
             if (error.code === 11000) {
-                  return apiErrorHandler(
-                        res,
-                        409,
-                        "Duplicate contact entry detected."
-                  );
+                  throw new apiErrorHandler(409, "Duplicate contact entry detected.");
             }
 
             // Catch-all error handling
-            return apiErrorHandler(res, 500, error.message);
+            throw new apiErrorHandler(500, error.message);
       }
 });
 

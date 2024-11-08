@@ -9,14 +9,22 @@ const getContact = asyncHandler(async (req, res, next) => {
 
             // Check if contact data exists
             if (!contact) {
-                  return apiErrorHandler(res, 404, "Contact not found");
+                  throw new apiErrorHandler(res, 404, "Contact not found");
             }
 
             // Send successful response with contact data
-            return apiResponse(res, 200, contact);
+            return res
+                  .status(200)
+                  .json(
+                        new apiResponse(
+                              200,
+                              "Contact retrieved successfully",
+                              contact
+                        )
+                  );
       } catch (error) {
             // Handle server error
-            return apiErrorHandler(res, 500, "Server error");
+            throw new apiErrorHandler(res, 500, "Server error");
       }
 });
 

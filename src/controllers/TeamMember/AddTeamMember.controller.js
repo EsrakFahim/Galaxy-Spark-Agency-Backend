@@ -17,7 +17,7 @@ const addTeamMember = asyncHandler(async (req, res) => {
                         jobTitle &&
                         bio &&
                         description &&
-                        socialLinks &&
+                        // socialLinks &&
                         experience &&
                         avatar
                   )
@@ -43,6 +43,8 @@ const addTeamMember = asyncHandler(async (req, res) => {
                   );
             }
 
+            console.log(avatar[0].path);
+
             const avatarUrl = await uploadFileCloudinary(avatar[0].path);
 
             const newTeamMember = await TeamMember.create({
@@ -66,7 +68,7 @@ const addTeamMember = asyncHandler(async (req, res) => {
                         )
                   );
       } catch (error) {
-            return apiErrorHandler(500, res, error.message);
+            throw new apiErrorHandler(500, res, error.message);
       }
 });
 

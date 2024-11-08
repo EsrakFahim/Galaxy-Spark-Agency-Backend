@@ -11,11 +11,7 @@ const router = Router();
 router.route("/add").post(
       upload.fields([
             {
-                  name: "coverImage",
-                  maxCount: 1,
-            },
-            {
-                  name: "showcaseImages",
+                  name: "avatar",
                   maxCount: 1,
             },
       ]),
@@ -25,11 +21,7 @@ router.route("/add").post(
 router.route("/update").put(
       upload.fields([
             {
-                  name: "coverImage",
-                  maxCount: 1,
-            },
-            {
-                  name: "showcaseImages",
+                  name: "avatar",
                   maxCount: 1,
             },
       ]),

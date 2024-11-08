@@ -6,7 +6,8 @@ const app = express();
 
 // CORS configuration
 const corsOptions = {
-      origin: "https://www.galaxyspark.agency", // Allow your frontend origin
+      // origin: "https://www.galaxyspark.agency", // Allow your frontend origin
+      origin: "*", // Allow all origins
       credentials: true, // Allow cookies to be sent
 };
 
