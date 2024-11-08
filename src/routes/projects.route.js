@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { upload } from "../middlewares/multer.middlewares.js";
-import { CreateProject } from "../controllers/Projects/Projects.controller.js";
+import { CreateProject } from "../controllers/Projects/CreateProjects.controller.js";
 // import { EditProject } from "../controllers/Projects/EditProject.controller.js";
 // import { DeleteProject } from "../controllers/Projects/DeleteProject.controller.js";
 // import { GetAllProjects } from "../controllers/Projects/GetAllProjects.controller.js";
