@@ -12,6 +12,7 @@ const clientMessage = asyncHandler(async (req, res, next) => {
       const { fullName, email, message, mobile, clientIP, projectType } =
             req.body;
 
+      console.log(process.env.DB_CONNECTION_URI);
       console.log("Request Body:", req.body);
 
       if (!fullName || !email) {
