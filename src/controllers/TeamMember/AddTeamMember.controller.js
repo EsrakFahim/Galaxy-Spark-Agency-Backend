@@ -17,30 +17,22 @@ const addTeamMember = asyncHandler(async (req, res) => {
                         jobTitle &&
                         bio &&
                         description &&
-                        // socialLinks &&
+                        socialLinks &&
                         experience &&
                         avatar
                   )
             ) {
-                  return apiErrorHandler(res, 400, "All fields are required");
+                  throw new apiErrorHandler(400, "All fields are required");
             }
 
             if (!avatar) {
-                  return apiErrorHandler(
-                        res,
-                        400,
-                        "Please upload an image file"
-                  );
+                  throw new apiErrorHandler(400, "Please upload an image file");
             }
 
             const existingTeamMember = await TeamMember.findOne({ fullName });
 
             if (existingTeamMember) {
-                  return apiErrorHandler(
-                        res,
-                        400,
-                        "Team member already exists"
-                  );
+                  throw new apiErrorHandler(400, "Team member already exists");
             }
 
             console.log(avatar[0].path);
@@ -68,7 +60,7 @@ const addTeamMember = asyncHandler(async (req, res) => {
                         )
                   );
       } catch (error) {
-            throw new apiErrorHandler(500, res, error.message);
+            throw new apiErrorHandler(500, error.message);
       }
 });
 

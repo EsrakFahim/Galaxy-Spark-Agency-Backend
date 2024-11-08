@@ -9,14 +9,14 @@ const DeleteService = asyncHandler(async (req, res, next) => {
 
             // Check if service ID is provided
             if (!_id) {
-                  return apiErrorHandler(res, 400, "Service ID is required");
+                  throw new apiErrorHandler(res, 400, "Service ID is required");
             }
 
             // Check if the service with the given ID exists
             const existingService = await OurServices.findById(_id);
 
             if (!existingService) {
-                  return apiErrorHandler(
+                  throw new apiErrorHandler(
                         res,
                         404,
                         "Service not found or already deleted"
@@ -32,7 +32,7 @@ const DeleteService = asyncHandler(async (req, res, next) => {
                         new apiResponse(200, "Service deleted successfully", {})
                   );
       } catch (error) {
-            return apiErrorHandler(res, 500, error.message);
+            throw new apiErrorHandler(res, 500, error.message);
       }
 });
 

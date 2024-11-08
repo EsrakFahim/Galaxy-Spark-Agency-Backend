@@ -7,14 +7,14 @@ const getSingleTeamMember = asyncHandler(async (req, res) => {
       const { _id } = req.params;
 
       if (!_id) {
-            return apiErrorHandler(res, 400, "Team member ID is required");
+            throw new apiErrorHandler(res, 400, "Team member ID is required");
       }
 
       try {
             const teamMember = await TeamMember.findById(_id);
 
             if (!teamMember) {
-                  return apiErrorHandler(res, 404, "Team member not found");
+                  throw new apiErrorHandler(res, 404, "Team member not found");
             }
 
             return res
@@ -27,7 +27,7 @@ const getSingleTeamMember = asyncHandler(async (req, res) => {
                         )
                   );
       } catch (error) {
-            return apiErrorHandler(res, 500, error.message);
+            throw new apiErrorHandler(res, 500, error.message);
       }
 });
 

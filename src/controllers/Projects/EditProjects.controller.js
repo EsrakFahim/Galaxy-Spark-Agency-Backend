@@ -34,7 +34,7 @@ const EditProject = asyncHandler(async (req, res, next) => {
             const existingProject = await Projects.findOne({ _id });
 
             if (!existingProject) {
-                  return apiErrorHandler(404, res, "Project not found");
+                  throw new apiErrorHandler(404, res, "Project not found");
             }
 
             // Update fields only if they are different from existing values
@@ -130,7 +130,7 @@ const EditProject = asyncHandler(async (req, res, next) => {
                         )
                   );
       } catch (error) {
-            return apiErrorHandler(500, res, error.message);
+            throw new apiErrorHandler(500, res, error.message);
       }
 });
 

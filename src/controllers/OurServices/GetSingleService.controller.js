@@ -10,7 +10,7 @@ const getSingleService = asyncHandler(async (req, res, next) => {
             const service = await OurServices.findOne({ _id });
 
             if (!service) {
-                  return apiErrorHandler(res, 404, "Service not found");
+                  throw new apiErrorHandler(res, 404, "Service not found");
             }
 
             return res
@@ -23,7 +23,7 @@ const getSingleService = asyncHandler(async (req, res, next) => {
                         )
                   );
       } catch (error) {
-            return apiErrorHandler(res, 500, error.message);
+            throw new apiErrorHandler(res, 500, error.message);
       }
 });
 

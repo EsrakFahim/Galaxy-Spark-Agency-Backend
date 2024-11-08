@@ -10,7 +10,7 @@ const verifyAdmin = asyncHandler(async (req, res, next) => {
             const userAccessToken = req?.cookies?.accessToken;
 
             if (!userAccessToken) {
-                  return apiErrorHandler(res, "Unauthorized", 401);
+                  throw new apiErrorHandler(res, "Unauthorized", 401);
             }
 
             // Verify the user access token
@@ -20,14 +20,14 @@ const verifyAdmin = asyncHandler(async (req, res, next) => {
             );
 
             if (!decodedUser) {
-                  return apiErrorHandler(res, "Unauthorized", 401);
+                  throw new apiErrorHandler(res, "Unauthorized", 401);
             }
 
             const user = await User.findById(decodedUser._id);
 
             if (user.role !== "admin") {
                   // Check if the user is an admin
-                  return apiErrorHandler(res, "Forbidden", 403);
+                  throw new apiErrorHandler(res, "Forbidden", 403);
             }
 
             req.user = decodedUser;

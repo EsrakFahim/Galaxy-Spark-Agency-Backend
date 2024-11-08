@@ -7,14 +7,14 @@ const removeTeamMember = asyncHandler(async (req, res) => {
       const { _id } = req.params;
 
       if (!_id) {
-            return apiErrorHandler(res, 400, "Team member ID is required");
+            throw new apiErrorHandler(res, 400, "Team member ID is required");
       }
 
       try {
             const existingTeamMember = await TeamMember.findById(_id);
 
             if (!existingTeamMember) {
-                  return apiErrorHandler(
+                  throw new apiErrorHandler(
                         res,
                         404,
                         "Team member not found or already removed"
@@ -24,7 +24,7 @@ const removeTeamMember = asyncHandler(async (req, res) => {
             const deletedTeamMember = await TeamMember.findByIdAndDelete(_id);
 
             if (!deletedTeamMember) {
-                  return apiErrorHandler(
+                  throw new apiErrorHandler(
                         res,
                         500,
                         "Failed to remove team member"
@@ -41,7 +41,7 @@ const removeTeamMember = asyncHandler(async (req, res) => {
                         )
                   );
       } catch (error) {
-            return apiErrorHandler(res, 500, error.message);
+            throw new apiErrorHandler(res, 500, error.message);
       }
 });
 

@@ -12,7 +12,7 @@ const editMemberProfile = asyncHandler(async (req, res) => {
 
       try {
             if (!_id) {
-                  return apiErrorHandler(
+                  throw new apiErrorHandler(
                         res,
                         400,
                         "Team member ID is required"
@@ -22,7 +22,7 @@ const editMemberProfile = asyncHandler(async (req, res) => {
             const existingTeamMember = await TeamMember.findById(_id);
 
             if (!existingTeamMember) {
-                  return apiErrorHandler(res, 404, "Team member not found");
+                  throw new apiErrorHandler(res, 404, "Team member not found");
             }
 
             const updates = {};
@@ -54,8 +54,7 @@ const editMemberProfile = asyncHandler(async (req, res) => {
 
             // Check if the team member was updated successfully
             if (!updatedTeamMember)
-                  return apiErrorHandler(
-                        res,
+                  throw new apiErrorHandler(
                         500,
                         "Failed to update team member"
                   );
@@ -70,7 +69,7 @@ const editMemberProfile = asyncHandler(async (req, res) => {
                         )
                   );
       } catch (error) {
-            return apiErrorHandler(500, res, error.message);
+            throw new apiErrorHandler(500, error.message);
       }
 });
 

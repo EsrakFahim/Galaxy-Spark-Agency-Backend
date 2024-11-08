@@ -23,14 +23,14 @@ const EditServices = asyncHandler(async (req, res, next) => {
 
             // Ensure service ID is provided
             if (!_id) {
-                  return apiErrorHandler(res, 400, "Service ID is required");
+                  throw new apiErrorHandler(res, 400, "Service ID is required");
             }
 
             // Check if the service with the given ID exists
             const existingService = await OurServices.findById(_id);
 
             if (!existingService) {
-                  return apiErrorHandler(res, 404, "Service not found");
+                  throw new apiErrorHandler(res, 404, "Service not found");
             }
 
             // Prepare an object with fields to update
@@ -83,7 +83,7 @@ const EditServices = asyncHandler(async (req, res, next) => {
                         )
                   );
       } catch (error) {
-            return apiErrorHandler(res, 500, "Internal Server Error");
+            throw new apiErrorHandler(res, 500, "Internal Server Error");
       }
 });
 

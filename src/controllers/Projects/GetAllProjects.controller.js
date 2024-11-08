@@ -8,7 +8,7 @@ const getAllProjects = asyncHandler(async (req, res, next) => {
             const projects = await Projects.find();
 
             if (!projects) {
-                  return apiErrorHandler(res, 404, "No projects found");
+                  throw new apiErrorHandler(res, 404, "No projects found");
             }
 
             return res

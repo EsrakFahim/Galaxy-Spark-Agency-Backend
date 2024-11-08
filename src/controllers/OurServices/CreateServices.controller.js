@@ -30,7 +30,7 @@ const CreateServices = asyncHandler(async (req, res, next) => {
                   !includingServices ||
                   isFeatured === undefined
             ) {
-                  return apiErrorHandler(
+                  throw new apiErrorHandler(
                         res,
                         400,
                         "Please provide all required fields"
@@ -39,7 +39,7 @@ const CreateServices = asyncHandler(async (req, res, next) => {
 
             // Check if required images are provided
             if (!coverImage || !showcaseImages) {
-                  return apiErrorHandler(
+                  throw new apiErrorHandler(
                         res,
                         400,
                         "Please provide all required images"
@@ -49,7 +49,7 @@ const CreateServices = asyncHandler(async (req, res, next) => {
             // Check if service with the same title already exists
             const existingService = await OurServices.findOne({ title });
             if (existingService) {
-                  return apiErrorHandler(res, 400, "Service already exists");
+                  throw new apiErrorHandler(res, 400, "Service already exists");
             }
 
             // Upload images to Cloudinary
@@ -61,7 +61,7 @@ const CreateServices = asyncHandler(async (req, res, next) => {
             );
 
             if (!uploadedCoverImage || !uploadedShowcaseImages) {
-                  return apiErrorHandler(res, 500, "Error uploading images");
+                  throw new apiErrorHandler(res, 500, "Error uploading images");
             }
 
             // Create the new service
@@ -78,7 +78,7 @@ const CreateServices = asyncHandler(async (req, res, next) => {
             });
 
             if (!service) {
-                  return apiErrorHandler(res, 500, "Error creating service");
+                  throw new apiErrorHandler(res, 500, "Error creating service");
             }
 
             return res
@@ -91,7 +91,7 @@ const CreateServices = asyncHandler(async (req, res, next) => {
                         )
                   );
       } catch (error) {
-            return apiErrorHandler(res, 500, "Server error");
+            throw new apiErrorHandler(res, 500, "Server error");
       }
 });
 

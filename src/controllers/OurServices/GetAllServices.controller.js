@@ -12,7 +12,7 @@ const GetAllServices = asyncHandler(async (req, res, next) => {
                   .status(200)
                   .json(new apiResponse(200, services, "All services"));
       } catch (error) {
-            return apiErrorHandler(res, 500, error.message);
+            throw new apiErrorHandler(res, 500, error.message);
       }
 });
 

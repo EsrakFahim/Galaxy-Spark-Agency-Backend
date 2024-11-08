@@ -8,7 +8,7 @@ const getAllTeamMember = asyncHandler(async (req, res) => {
             const teamMembers = await TeamMember.find();
 
             if (!teamMembers) {
-                  return apiErrorHandler(res, 404, "No team members found");
+                  throw new apiErrorHandler(404, "No team members found");
             }
 
             return res
@@ -21,7 +21,7 @@ const getAllTeamMember = asyncHandler(async (req, res) => {
                         )
                   );
       } catch (error) {
-            return apiErrorHandler(res, 500, error.message);
+            throw new apiErrorHandler(res, 500, error.message);
       }
 });
 
