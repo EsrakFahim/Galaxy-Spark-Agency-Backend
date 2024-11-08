@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-// Define a subdocument schema for files
+// Define a sub document schema for files
 const FileSchema = new Schema(
       {
             url: {
@@ -14,12 +14,13 @@ const FileSchema = new Schema(
                   trim: true,
                   maxlength: 100,
             },
-            uploadedAt: {
-                  type: Date,
-                  default: Date.now,
-            },
       },
-      { _id: false }
+      {
+            _id: false,
+      },
+      {
+            timestamps: true,
+      }
 );
 
 const projectsSchema = new Schema(
@@ -29,7 +30,7 @@ const projectsSchema = new Schema(
                   required: [true, "Project name is required"],
                   trim: true,
                   maxlength: 100,
-                  index: true,  // Index for quick lookup
+                  index: true, // Index for quick lookup
             },
             description: {
                   type: String,
@@ -38,20 +39,34 @@ const projectsSchema = new Schema(
             },
             client: {
                   type: String,
-                  required: [true, "Client name is required"],
+                  required: [false, "Client name is required"],
                   trim: true,
                   maxlength: 100,
             },
             projectType: {
                   type: String,
-                  enum: ["Website", "Mobile App", "Software", "Consulting", "Design", "Marketing", "Other"],
+                  enum: [
+                        "Website",
+                        "Mobile App",
+                        "Software",
+                        "Consulting",
+                        "Design",
+                        "Marketing",
+                        "Other",
+                  ],
                   required: true,
             },
             status: {
                   type: String,
-                  enum: ["Pending", "Ongoing", "Completed", "On Hold", "Cancelled"],
+                  enum: [
+                        "Pending",
+                        "Ongoing",
+                        "Completed",
+                        "On Hold",
+                        "Cancelled",
+                  ],
                   required: true,
-                  index: true,  // Index for frequently queried status
+                  index: true, // Index for frequently queried status
             },
             startDate: {
                   type: Date,
@@ -116,7 +131,7 @@ const projectsSchema = new Schema(
                   match: [/^https?:\/\/[^\s]+$/, "Invalid URL format"],
                   default: null,
             },
-            sourceCode: {
+            sourceFile: {
                   type: String,
                   match: [/^https?:\/\/[^\s]+$/, "Invalid URL format"],
                   default: null,
@@ -124,7 +139,7 @@ const projectsSchema = new Schema(
             isActive: {
                   type: Boolean,
                   default: true,
-                  index: true,  // Index for active status filtering
+                  index: true, // Index for active status filtering
             },
       },
       {
