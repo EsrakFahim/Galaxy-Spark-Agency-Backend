@@ -4,6 +4,7 @@ import { CreateServices } from "../controllers/OurServices/CreateServices.contro
 import { EditServices } from "../controllers/OurServices/EditServices.controller.js";
 import { DeleteService } from "../controllers/OurServices/DeleteServices.controller.js";
 import { GetAllServices } from "../controllers/OurServices/GetAllServices.controller.js";
+import { getSingleService } from "../controllers/OurServices/GetSingleService.controller.js";
 
 const router = Router();
 
@@ -35,5 +36,6 @@ router.route("/update").put(
 );
 router.route("/delete").delete(DeleteService);
 router.route("/").get(GetAllServices);
+router.route("/:id").get(getSingleService);
 
 export default router;

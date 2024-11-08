@@ -69,7 +69,7 @@ const EditServices = asyncHandler(async (req, res, next) => {
             const updatedService = await OurServices.findByIdAndUpdate(
                   _id,
                   { $set: updates },
-                  { new: true } // Return the updated document
+                  { new: true, useFindAndModify: false } // Return the updated document
             );
 
             // Send the updated service as a response

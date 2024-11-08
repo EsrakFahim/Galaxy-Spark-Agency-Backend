@@ -1,0 +1,30 @@
+import { asyncHandler } from "../../utils/asyncHandler.js";
+import { apiResponse } from "../../utils/apiResponse.js";
+import { apiErrorHandler } from "../../utils/apiErrorHandler.js";
+import { OurServices } from "../../models/OurServices/OurServices.model.js";
+
+const getSingleService = asyncHandler(async (req, res, next) => {
+      const { _id } = req.params; // Get service ID from request params
+
+      try {
+            const service = await OurServices.findOne({ _id });
+
+            if (!service) {
+                  return apiErrorHandler(res, 404, "Service not found");
+            }
+
+            return res
+                  .status(200)
+                  .json(
+                        new apiResponse(
+                              200,
+                              service,
+                              "Service fetched successfully"
+                        )
+                  );
+      } catch (error) {
+            return apiErrorHandler(res, 500, error.message);
+      }
+});
+
+export { getSingleService };
