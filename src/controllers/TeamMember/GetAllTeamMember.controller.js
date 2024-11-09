@@ -16,8 +16,8 @@ const getAllTeamMember = asyncHandler(async (req, res) => {
                   .json(
                         new apiResponse(
                               true,
+                              teamMembers,
                               "Team members retrieved successfully",
-                              teamMembers
                         )
                   );
       } catch (error) {

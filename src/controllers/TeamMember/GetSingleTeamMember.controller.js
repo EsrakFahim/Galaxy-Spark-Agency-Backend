@@ -4,14 +4,14 @@ import { apiErrorHandler } from "../../utils/apiErrorHandler.js";
 import { TeamMember } from "../../models/TeamMember/TeamMember.model.js";
 
 const getSingleTeamMember = asyncHandler(async (req, res) => {
-      const { _id } = req.params;
+      const { id } = req.params;
 
-      if (!_id) {
+      if (!id) {
             throw new apiErrorHandler(res, 400, "Team member ID is required");
       }
 
       try {
-            const teamMember = await TeamMember.findById(_id);
+            const teamMember = await TeamMember.findById(id);
 
             if (!teamMember) {
                   throw new apiErrorHandler(res, 404, "Team member not found");
@@ -22,8 +22,8 @@ const getSingleTeamMember = asyncHandler(async (req, res) => {
                   .json(
                         new apiResponse(
                               true,
-                              "Team member retrieved successfully",
-                              teamMember
+                              teamMember,
+                              "Team member retrieved successfully"
                         )
                   );
       } catch (error) {

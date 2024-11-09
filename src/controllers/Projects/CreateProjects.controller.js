@@ -27,8 +27,29 @@ const CreateProject = asyncHandler(async (req, res, next) => {
                   isActive,
             } = req?.body;
 
+            console.log(
+                  name,
+                  description,
+                  client,
+                  projectType,
+                  status,
+                  startDate,
+                  endDate,
+                  projectManager,
+                  team,
+                  budget,
+                  spent,
+                  tech,
+                  notes,
+                  livePreview,
+                  sourceFile,
+                  isActive
+            );
+
             // Destructure files from request (if any)
-            const { files } = req.files;
+            const files = req.files; // Multer parses the files into `req.files`
+
+            console.log("Files Received:", files);
 
             // Validate required fields
             if (
@@ -46,30 +67,27 @@ const CreateProject = asyncHandler(async (req, res, next) => {
                         "Please provide all required fields"
                   );
             }
-            console.log("project created");
+
             // Check if a project with the same name already exists
             const existingProject = await Projects.findOne({ name });
             if (existingProject) {
-                  throw new apiErrorHandler(
-                        res,
-                        400,
-                        "Project already exists"
-                  );
+                  throw new apiErrorHandler(400, "Project already exists");
             }
 
-            // Process file uploads
+            console.log("Received files:", files);
+
+            // Upload files to Cloudinary (or your storage solution)
             let uploadedFiles = [];
             if (files && files.length > 0) {
                   for (const file of files) {
                         const uploadedFile = await uploadFileCloudinary(
-                              file[0].path
+                              file?.path
                         );
-                        if (uploadedFile) {
-                              uploadedFiles.push({
-                                    url: uploadedFile.url,
-                                    name: file.originalname,
-                              });
-                        }
+                        console.log("Uploaded File:", uploadedFile);
+                        uploadedFiles.push({
+                              url: uploadedFile.url,
+                              name: file.originalname,
+                        });
                   }
             }
 
@@ -95,10 +113,7 @@ const CreateProject = asyncHandler(async (req, res, next) => {
             });
 
             if (!newProject) {
-                  throw new apiErrorHandler(
-                        500,
-                        "Error creating project"
-                  );
+                  throw new apiErrorHandler(500, "Error creating project");
             }
 
             // Send a success response
@@ -112,10 +127,7 @@ const CreateProject = asyncHandler(async (req, res, next) => {
                         )
                   );
       } catch (error) {
-            throw new apiErrorHandler(
-                  500,
-                  error 
-            );
+            throw new apiErrorHandler(500, error.message || "Server Error");
       }
 });
 

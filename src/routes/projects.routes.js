@@ -9,13 +9,8 @@ import { getSingleProject } from "../controllers/Projects/GetSingleProjects.cont
 const router = Router();
 
 // Route for creating a new project with file uploads
-router.route("/upload").post(
-      upload.fields([
-            {
-                  name: "files",
-                  maxCount: 10, // Adjust maxCount as needed
-            },
-      ]),
+router.route("/create").post(
+      upload.array("files", 10), // Handling multiple file uploads
       CreateProject
 );
 
