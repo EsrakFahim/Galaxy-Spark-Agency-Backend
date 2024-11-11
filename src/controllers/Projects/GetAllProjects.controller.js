@@ -4,24 +4,37 @@ import { apiErrorHandler } from "../../utils/apiErrorHandler.js";
 import { Projects } from "../../models/Projects/Projects.model.js";
 
 const getAllProjects = asyncHandler(async (req, res, next) => {
+      const { page = 1, limit = 10 } = req.query;
+
+      // Convert page and limit to integers
+      const pageNumber = parseInt(page, 10);
+      const limitNumber = parseInt(limit, 10);
+
       try {
-            const projects = await Projects.find();
+            // Fetch projects with pagination
+            const projects = await Projects.find({})
+                  .skip((pageNumber - 1) * limitNumber)
+                  .limit(limitNumber);
 
-            if (!projects) {
-                  throw new apiErrorHandler(404, "No projects found");
-            }
+            // Get the total count of projects
+            const totalProjects = await Projects.countDocuments();
 
-            return res
-                  .status(200)
-                  .json(
-                        new apiResponse(
-                              true,
+            return res.status(200).json(
+                  new apiResponse(
+                        200,
+                        {
                               projects,
-                              "Projects fetched successfully"
-                        )
-                  );
+                              total: totalProjects,
+                              currentPage: pageNumber,
+                              totalPages: Math.ceil(
+                                    totalProjects / limitNumber
+                              ),
+                        },
+                        "Projects fetched successfully"
+                  )
+            );
       } catch (error) {
-            throw new apiErrorHandler(res, 500, error.message);
+            next(new apiErrorHandler(500, error.message));
       }
 });
 
