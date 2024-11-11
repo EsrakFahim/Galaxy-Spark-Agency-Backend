@@ -34,7 +34,7 @@ const getAllProjects = asyncHandler(async (req, res, next) => {
                   )
             );
       } catch (error) {
-            next(new apiErrorHandler(500, error.message));
+            throw new apiErrorHandler(500, error.message);
       }
 });
 
