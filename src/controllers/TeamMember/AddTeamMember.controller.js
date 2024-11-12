@@ -17,7 +17,7 @@ const addTeamMember = asyncHandler(async (req, res) => {
                         jobTitle &&
                         bio &&
                         description &&
-                        socialLinks &&
+                        // socialLinks &&
                         experience &&
                         avatar
                   )
@@ -46,7 +46,7 @@ const addTeamMember = asyncHandler(async (req, res) => {
                   description,
                   socialLinks,
                   experience,
-                  avatar: avatarUrl,
+                  avatar: avatarUrl.url,
             });
             await newTeamMember.save();
 
