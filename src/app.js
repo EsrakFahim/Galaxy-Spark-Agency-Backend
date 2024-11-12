@@ -29,12 +29,12 @@ const corsOptions = {
 };
 
 // Middleware setup
+app.use(express.static("public")); // Serve static files from 'public' directory
 app.use(cors(corsOptions));
 app.use(helmet()); // Security headers
 app.use(cookieParser());
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
-app.use(express.static("public")); // Serve static files from 'public' directory
 
 // Routes import
 import clientRouter from "./routes/client.routes.js";
