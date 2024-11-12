@@ -13,6 +13,7 @@ const allowedOrigins = [
       "https://www.galaxyspark.agency",
       "https://galaxy-spark-admin-dashboard.vercel.app",
       "http://localhost:5173", // Removed trailing slash
+      "http://localhost:3000",
 ];
 
 const corsOptions = {
