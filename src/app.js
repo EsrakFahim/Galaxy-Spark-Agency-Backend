@@ -12,7 +12,7 @@ const app = express();
 const allowedOrigins = [
       "https://www.galaxyspark.agency",
       "https://galaxy-spark-admin-dashboard.vercel.app",
-      "http://localhost:5173/",
+      "http://localhost:5173", // Removed trailing slash
 ];
 
 const corsOptions = {
@@ -25,6 +25,7 @@ const corsOptions = {
             }
       },
       credentials: true, // Allow cookies to be sent
+      optionsSuccessStatus: 200, // For legacy browser support
 };
 
 // Middleware setup
