@@ -43,8 +43,8 @@ const addHomeItems = asyncHandler(async (req, res) => {
                   title,
                   subTitle,
                   videoText,
-                  videoUrl: uploadedVideo.secure_url,
-                  bannerImageUrl: uploadedBannerImage.secure_url,
+                  video: uploadedVideo.secure_url,
+                  bannerImage: uploadedBannerImage.secure_url,
                   callToAction: {
                         text: callToAction?.text || "Get Started",
                         url: callToAction?.url || null,
